@@ -8,6 +8,8 @@ namespace DataStorage
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
+            //authorization added
+            filters.Add(new AuthorizeAttribute());
         }
     }
 }

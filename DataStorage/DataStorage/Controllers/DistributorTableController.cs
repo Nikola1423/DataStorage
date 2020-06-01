@@ -25,6 +25,8 @@ namespace DataStorage.Controllers
                 distributorTables = distributorTables.Where((d => d.Distributor.NameSurname.Contains(searchString)));
 
             }
+            //   if (!User.IsInRole("Admin"))
+            //   return View("IndexUser", distributorTables.ToList());
 
             return View(distributorTables.ToList());
         }
