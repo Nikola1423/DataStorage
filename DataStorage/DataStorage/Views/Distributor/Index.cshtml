@@ -1,0 +1,108 @@
+﻿@model IEnumerable<DataStorage.Models.Distributor>
+
+@{
+    /**/
+
+    ViewBag.Title = "Дистрибутери";
+}
+
+<h2>Дистрибутери</h2>
+
+<h3>
+    @Html.ActionLink("Create New", "Create")
+</h3>
+
+<table class="table" id="Distributor">
+    <thead>
+        <tr>
+            <th class="SerialNumber">Бр.</th>
+            <th>
+                @Html.DisplayNameFor(model => model.NameSurname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="SerialNumber"></td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NameSurname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $("#Distributor").DataTable({
+                /* searching: false, */
+
+                "dom": '<"top"f>rt<"bottom"ilp><"clear">'
+            });
+        });
+
+            /*
+             * 
+             DataTables Helper
+             * 
+             * l - Length changing
+              f - Filtering input
+              t - The Table!
+              i - Information
+              p - Pagination
+              r - pRocessing
+             < and > - div elements
+             <"#id" and > - div with an id
+             <"class" and > - div with a class
+             <"#id.class" and > - div with an id and class  */
+
+    </script>
+
+}
+
+<style>
+
+    .SearchTextBox {
+        border-radius: 5px;
+    }
+
+    body {
+        counter-reset: Serial; /* Set the Serial counter to 0 */
+    }
+
+    table {
+        border-collapse: separate;
+    }
+
+    tr td:first-child:before {
+        counter-increment: Serial; /* Increment the Serial counter */
+        content: counter(Serial); /* Display the counter */
+    }
+
+    th, td {
+        min-width: 150px;
+        text-align: center;
+    }
+
+    .SerialNumber {
+        min-width: 50px;
+    }
+</style>

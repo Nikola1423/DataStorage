@@ -1,0 +1,184 @@
+﻿@model DataStorage.Models.DistributorTable
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>DistributorTable</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Distributor.NameSurname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Distributor.NameSurname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Vehicle.Registration)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Vehicle.Registration)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.YearInput.Year)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.YearInput.Year)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Month)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Month)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Realization)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Realization)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PriceOfCostOfProduct)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PriceOfCostOfProduct)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gratis)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gratis)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Shortage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Shortage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Storage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Storage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Unload)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Unload)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Commercialist)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Commercialist)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BrutoPay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BrutoPay)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BrutoPercent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BrutoPercent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NetoPay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NetoPay)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NetoPercent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NetoPercent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fuel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fuel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Service)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Service)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Consumables)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Consumables)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RegistrationInsurance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RegistrationInsurance)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OtherExpenses)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OtherExpenses)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

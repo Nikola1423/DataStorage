@@ -1,0 +1,346 @@
+﻿@model IEnumerable<DataStorage.Models.DistributorTable>
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+<h2>Табела на Дистрибутери</h2>
+
+
+<h3>
+    @Html.ActionLink("Create New", "Create")
+</h3>
+
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <p class="col-md-3">
+            <strong>Пребарај по име:</strong>
+            <br />
+            @Html.TextBox("SearchString", null, new { @class = "SearchTextBox" })
+            <br /><br />
+            <input type="submit" value="Search" class="btn btn-primary" />
+        </p>
+    </div>
+
+}
+@{
+    int Difference = 0;
+    int MainDifference = 0;
+    int Expenses = 0;
+    int FullExpenses = 0;
+}
+
+<table class="table" id="DistributorTable">
+
+    <thead>
+        <tr>
+            <th class="SerialNumber">
+                Бр.
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Distributor.NameSurname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vehicle.Registration)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Month)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.YearInput.Year)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Distributor.City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Realization)
+            </th>
+            <th>
+                Трошоци
+            </th>
+            <th>
+                Разлика
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PriceOfCostOfProduct)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gratis)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Shortage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Storage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Unload)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Commercialist)
+            </th>
+            <th>
+                Бруто исплатени приходи
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BrutoPay)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BrutoPercent)
+            </th>
+            <th>
+                Нето Исплатени приходи
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NetoPay)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NetoPercent)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fuel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Service)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Consumables)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RegistrationInsurance)
+            </th>
+            <th class="DisplayFixOtherExpenses">
+                @Html.DisplayNameFor(model => model.OtherExpenses)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="SerialNumber"></td>
+                <td>
+                    <!-- @Html.DisplayFor(modelItem => item.Distributor.NameSurname) Imeto pokazuva na detali od tabelata(DistributorTable)-->
+                    @Html.ActionLink(item.Distributor.NameSurname, "Details", "DistributorTable", new { id = item.ID }, null)
+                </td>
+                <td>
+                    <!--  @Html.DisplayFor(modelItem => item.Vehicle.Registration) imeto na registracija pokazuva na detali na voziloto(Vehicle)-->
+
+                    @Html.ActionLink(item.Vehicle.Registration, "Details", "Vehicle", new { id = item.VehicleID }, null)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Month)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.YearInput.Year)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Distributor.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Realization)
+                </td>
+                <td>
+                    <!--Suma za Trosoci -->
+                    @{
+                        Expenses = item.PriceOfCostOfProduct + item.Gratis + item.Shortage + item.Storage +
+                   item.Unload + item.Commercialist + item.BrutoPay + item.BrutoPercent +
+                   item.NetoPay + item.NetoPercent + item.Fuel + item.Service + item.Consumables +
+                   item.RegistrationInsurance + item.OtherExpenses;
+
+                        FullExpenses += Expenses;
+                    }
+                    @Html.DisplayFor(modelItem => Expenses)
+                </td>
+                <td>
+                    <!--Suma za Razlika (Realization-Expenses)-->
+
+                    @{
+
+                        Difference = item.Realization - Expenses;
+
+                        MainDifference += Difference;
+
+                    }
+
+                    @Html.DisplayFor(modelItem => Difference)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PriceOfCostOfProduct)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gratis)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Shortage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Storage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Unload)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Commercialist)
+                </td>
+                <td>
+                    <!--Suma na BrutoPay i BrutoPercent vo vkupno Bruto-->
+                    @RowSum(item.BrutoPay, item.BrutoPercent)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BrutoPay)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BrutoPercent)
+                </td>
+                <td>
+                    <!--Suma na NetoPay i NetoPercent vo vkupno Neto-->
+                    @RowSum(item.NetoPay, item.NetoPercent)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NetoPay)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NetoPercent)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fuel)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Service)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Consumables)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RegistrationInsurance)
+                </td>
+                <td class="DisplayFixOtherExpenses">
+                    @Html.DisplayFor(modelItem => item.OtherExpenses)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                </td>
+            </tr>
+        }
+
+    </tbody>
+    <tr>
+        <td style="color:white" class="SerialNumber"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><strong>Вкупно</strong></td>
+        <td><strong>@Model.Sum(i => i.Realization)</strong></td>
+        <td>
+            <!-- Suma za vkupno od trosoci( FullExpenses+=Expenses )-->
+            <strong>@Html.DisplayFor(i => FullExpenses)</strong>
+        </td>
+        <td>
+            <!-- Suma za Vkupno od Razlika( MainDifference+=Difference )-->
+            <strong> @Html.DisplayFor(i => MainDifference)</strong>
+        </td>
+        <td> <strong> @Model.Sum(i => i.PriceOfCostOfProduct) </strong> </td>
+        <td> <strong> @Model.Sum(i => i.Gratis) </strong> </td>
+        <td><strong> @Model.Sum(i => i.Shortage)</strong> </td>
+        <td><strong> @Model.Sum(i => i.Storage)</strong> </td>
+        <td><strong> @Model.Sum(i => i.Unload)</strong> </td>
+        <td><strong> @Model.Sum(i => i.Commercialist)</strong> </td>
+        <!--Suma od vkupno za BrutoPay i BrutoPercent -->
+        <td><strong> @Model.Sum(i => (i.BrutoPay + i.BrutoPercent))</strong> </td>
+        <td><strong> @Model.Sum(i => i.BrutoPay)</strong> </td>
+        <td><strong> @Model.Sum(i => i.BrutoPercent)</strong> </td>
+        <!-- Suma od vkupno za NetoPay i NetoPercent-->
+        <td><strong> @Model.Sum(i => (i.NetoPay + i.NetoPercent))</strong> </td>
+        <td><strong> @Model.Sum(i => i.NetoPay)</strong> </td>
+        <td><strong> @Model.Sum(i => i.NetoPercent) </strong></td>
+        <td><strong> @Model.Sum(i => i.Fuel)</strong> </td>
+        <td><strong> @Model.Sum(i => i.Service)</strong> </td>
+        <td><strong> @Model.Sum(i => i.Consumables)</strong> </td>
+        <td><strong> @Model.Sum(i => i.RegistrationInsurance)</strong> </td>
+        <td><strong> @Model.Sum(i => i.OtherExpenses)</strong> </td>
+        <td><strong>Вкупно</strong></td>
+    </tr>
+
+</table>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $("#DistributorTable").DataTable({
+                searching: false,
+                "scrollX": true,
+                "dom": '<"top">rt<"bottom"ilp><"clear">'
+            });
+        });
+
+                                /*
+                                 * 
+                                 * 
+                                 DataTables Helper
+                                 * 
+                                 * l - Length changing
+                                  f - Filtering input
+                                  t - The Table!
+                                  i - Information
+                                  p - Pagination
+                                  r - pRocessing
+                                 < and > - div elements
+                                 <"#id" and > - div with an id
+                                 <"class" and > - div with a class
+                                 <"#id.class" and > - div with an id and class  */
+
+    </script>
+}
+
+@functions
+{
+    public int RowSum(int a, int b)
+    {
+        return a + b;
+    }
+
+
+
+}
+
+<style>
+
+    .SearchTextBox {
+        border-radius: 5px;
+    }
+
+    body {
+        counter-reset: Serial; /* Set the Serial counter to 0 */
+    }
+
+    table {
+        border-collapse: separate;
+    }
+
+    tr td:first-child:before {
+        counter-increment: Serial; /* Increment the Serial counter */
+        content: counter(Serial); /* Display the counter */
+    }
+
+    th, td {
+        min-width: 150px;
+        text-align: center;
+    }
+
+    .DisplayFixOtherExpenses {
+        min-width: 120px;
+    }
+
+    .SerialNumber {
+        min-width: 50px;
+    }
+</style>
